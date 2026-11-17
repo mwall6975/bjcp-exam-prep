@@ -1,26 +1,26 @@
 // ===== Study guide content (paraphrased from BJCP materials; see Resources tab for originals) =====
 const FAULTS=[
-['Acetaldehyde','Green apple, fresh-cut grass, latex paint','Young/green beer, removed from yeast too early, poor oxygenation, bacteria.','Low level can be acceptable in Kellerbier.'],
+['Acetaldehyde','Green apple, fresh-cut grass, latex paint','Young/green beer, removed from yeast too early, poor oxygenation, bacteria.','Not appropriate in most styles; treat as a fault.'],
 ['Alcoholic / Hot','Spicy, vinous, warming; hot burn if fusel-laden','Underpitching, low oxygen, high fermentation temperature or gravity.','Appropriate (smooth, not solventy) in Eisbock, Imperial Stout, Barleywines.'],
 ['Astringent','Puckering, drying, husk-like, stewed tea','Oversparging, sparge water over 170 F (77 C) or pH over 6, over-crushed grain, raw spices/pith, oxidation.','Slight in American IPA, low in American Porter, low-medium in Flanders Red.'],
-['Diacetyl','Butter, butterscotch, movie popcorn, slick feel','Yeast removed too early, oxygen during fermentation, low FAN, Pediococcus. Fix with diacetyl rest 60-68 F, healthy yeast contact.','Low OK: Czech lagers, English bitters, brown/dark British beers, Irish Red. Not OK: German lagers (Kellerbier aside), Irish Stout, American and Belgian ales.'],
-['DMS (dimethyl sulfide)','Cooked or canned corn, celery, cabbage, onion','SMM precursor (much higher in Pilsner malt), short/weak/covered boil, slow chilling, infection.','Low OK: American Lager, Cream Ale, International Lager, Munich Helles, German Pils. Not OK in other ales, Czech lagers, amber/dark lagers.'],
+['Diacetyl','Butter, butterscotch, movie popcorn, slick feel','Yeast removed too early, oxygen during fermentation, low FAN, Pediococcus. Fix with diacetyl rest 60-68 F, healthy yeast contact.','Low OK: Czech lagers, English bitters, brown/dark British beers, Irish Red. Not OK: German lagers, generally Irish Stout, most American and Belgian ales.'],
+['DMS (dimethyl sulfide)','Cooked or canned corn, celery, cabbage, onion','SMM precursor (much higher in Pilsner malt), short/weak/covered boil, slow chilling, infection.','Low OK: Cream Ale (low DMS is optional). Not listed as appropriate in most other styles, including American Lager, Munich Helles, German Pils and Czech lagers.'],
 ['Estery / fruity','Banana, strawberry, pear, apple, citrus','Yeast strain, warm fermentation, high gravity, underpitching, low aeration, excess trub.','Desirable in many ales (esp. Belgian, British); isoamyl acetate = banana in Weissbier.'],
 ['Grassy','Fresh-cut grass, green leaves','Old/wet hops or malt, oxidation, dry hopping over about 10 days.','Low in dry-hopped English IPA, APA, IPA.'],
 ['Light-struck','Skunk, catty, roasted coffee','UV light cleaves iso-alpha acids which react with sulfur compounds; clear/green glass.','Not acceptable in any style.'],
 ['Medicinal (chlorophenol)','Medicine cabinet, chloroseptic, bleach','Chlorine/chloramine in water, sanitizer residue, wild yeast, husk phenols.','Not acceptable.'],
 ['Metallic','Iron, blood, coins, ink','Rusty or unpassivated equipment, chipped enamel kettle, iron in water.','Not acceptable.'],
 ['Musty','Damp cellar, moldy, old books','Mold on ingredients or equipment, oxidation.','Not acceptable.'],
-['Oxidized','Papery, cardboard (trans-2-nonenal), stale, sherry','Oxygen after fermentation, splashing, hot-side aeration, warm storage, age.','Sherry-like low-moderate OK in Old Ale, English Barleywine (low in aged Weizenbock, Oud Bruin); never paper/cardboard.'],
+['Oxidized','Papery, cardboard (trans-2-nonenal), stale, sherry','Oxygen after fermentation, splashing, hot-side aeration, warm storage, age.','Sherry-like low-moderate OK in Old Ale, English Barleywine (Oud Bruin); never paper/cardboard.'],
 ['Plastic / phenolic','Band-aid, electrical tape, styrene','Wild yeast or bacterial infection.','Not acceptable.'],
-['Solvent / fusel','Acetone, paint thinner, hot burning on palate','Underpitching, warm fermentation, fermenting on trub.','Very low in Old Ale, Barleywine, American Strong Ale.'],
+['Solvent / fusel','Acetone, paint thinner, hot burning on palate','Underpitching, warm fermentation, fermenting on trub.','Not acceptable. Strong ales may show evident alcohol or warmth, but it must not be solventy or hot.'],
 ['Sour / acidic','Sharp, clean sourness (lactic or citric); yogurt-like','Infection (Lactobacillus, Pediococcus, Acetobacter).','Intentional in Berliner Weisse, Flanders Red, Oud Bruin, Lambic, Gueuze, Fruit Lambic, Gose. Optional light tartness in Saison.'],
 ['Smoky (phenolic)','Smoke, charcoal, burnt','Scorched mash/boil, excess dark malt, infection, smoked malt.','Rauchbier and Smoked Beer only.'],
 ['Spicy (phenolic)','Clove, pepper, vanilla','Yeast strain (4-vinyl guaiacol from ferulic acid), fermentation temperature.','Weissbier, some Belgian ales, Saison.'],
-['Sulfury','Rotten eggs (H2S), burning matches (SO2)','Yeast stress, autolysis, sulfate water, lager fermentation by-product.','Fleeting SO2 OK in German pale lagers and Kolsch; more in Kellerbier, Australian Sparkling Ale.'],
+['Sulfury','Rotten eggs (H2S), burning matches (SO2)','Yeast stress, autolysis, sulfate water, lager fermentation by-product.','Fleeting SO2 OK in German pale lagers and Kolsch; fresh Australian Sparkling Ale may be slightly sulfury.'],
 ['Vegetal','Cooked/canned/rotten vegetables','Bacterial contamination of wort, stale ingredients, old extract.','Not acceptable.'],
 ['Vinegary','Acetic acid, vinegar','Acetobacter (aerobic), oxidation.','Low in Flanders Red.'],
-['Yeasty','Bready/doughy or meaty/brothy (autolysis)','Poor flocculation, yeast carryover; autolysis from long warm contact.','OK: unfiltered German lagers, Gose, some Belgians, Australian Sparkling Ale.']
+['Yeasty','Bready/doughy or meaty/brothy (autolysis)','Poor flocculation, yeast carryover; autolysis from long warm contact.','OK: Weissbier (when yeast is roused), Gose, some Belgians, Australian Sparkling Ale.']
 ];
 
 const GUIDE=[
@@ -96,7 +96,7 @@ list:['Outstanding 45-50 | Excellent 38-44 | Very Good 30-37 | Good 21-29 | Fair
 'Two-row: more extract, less protein/husk. Six-row: more protein and diastatic power, good for large adjunct additions, more husk for the filter bed.',
 'Kilning: Vienna about 145 F; pale malts 130-180 F; Munich up to ~210-244 F (melanoidins); amber malt ends ~280-300 F; crystal/caramel stewed at 150-170 F then roasted; chocolate and black malts roasted 420-450 F from undermodified malt.',
 'Wheat malt: head retention, huskless (mix with barley); raw wheat in Witbier and Lambic. Adjuncts: corn and rice lighten body (American lagers); cane sugar/honey dry and strengthen; flaked barley/oats add body/creaminess; lactose is unfermentable.',
-'SRM examples: American Light Lager 2-3; Pilsner 2-5; Oktoberfest 7-14; Dunkles Bock 14-22; some stouts over 60.']},
+'SRM examples: American Light Lager 2-3; Pilsner 2-5; Marzen 8-17; Dunkles Bock 14-22; some stouts over 60.']},
 {h:'Mashing and lautering',list:[
 'Acid rest 95-120 F (phytase, lowers pH). Protein rest 113-127 F (proteinases/peptidases: head and yeast nutrients). Ferulic acid rest ~111 F (clove precursor).',
 'Saccharification: below ~150 F (65 C) beta-amylase = more fermentable, thinner; above ~155 F (68 C) alpha-amylase = more dextrins, fuller body. Mash-out 168 F (76 C) denatures enzymes and lowers viscosity.',
@@ -113,7 +113,7 @@ list:['Outstanding 45-50 | Excellent 38-44 | Very Good 30-37 | Good 21-29 | Fair
 'Bittering 60-90 min; flavor 10-40 min; aroma at or near flame-out; dry hop in fermentation/after. First wort hopping = smoother bitterness. Pellets generally give better utilization than whole hops.',
 'Sulfate in water accentuates perceived bitterness and dryness. BU:GU ratio = IBU divided by the last two digits of OG.']},
 {h:'Yeast',list:[
-'Ale yeast: S. cerevisiae, top-fermenting, 55-75 F (13-24 C), more esters. Lager yeast: S. pastorianus, 46-56 F (8-13 C), clean; California Common is a warm lager-yeast exception (roughly 55-68 F).',
+'Ale yeast: S. cerevisiae, top-fermenting, 55-75 F (13-24 C), more esters. Lager yeast: S. pastorianus, 46-56 F (8-13 C), clean; California Common is a warm lager-yeast exception (roughly 55-60 F).',
 'Weizen yeast: special S. cerevisiae strains producing clove phenols and banana esters. Lager yeast can ferment raffinose fully.',
 'Bacteria and wild yeast: Lactobacillus for Berliner Weisse; Brettanomyces plus bacteria for Lambic; Pediococcus can make lactic sourness and diacetyl.',
 'Pitch temperature: no more than about 75 F (24 C) for ales and 55 F (13 C) for lagers. Cool slowly (no more than about 5 F per day) to avoid cold shock.',

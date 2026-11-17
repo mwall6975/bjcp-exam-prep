@@ -65,7 +65,7 @@ FAULTS.forEach(x=>{
 ['Post-fermentation finings','Gelatin, isinglass, silica gel, Polyclar.'],
 ['Ale yeast','S. cerevisiae, top-fermenting, 55-75 F (13-24 C), more esters.'],
 ['Lager yeast','S. pastorianus, bottom-fermenting, 46-56 F (8-13 C), clean.'],
-['California Common yeast','Lager yeast fermented warm (roughly 55-68 F).'],
+['California Common yeast','Lager yeast fermented warm (roughly 55-60 F).'],
 ['Diacetyl rest','Warm the beer (up to ~68 F) near end of fermentation so yeast reabsorb diacetyl.'],
 ['Lagering duration','About 4-6 weeks (longer for strong lagers).'],
 ['Krausening','Adding actively fermenting wort to finished beer to carbonate and clean up.'],

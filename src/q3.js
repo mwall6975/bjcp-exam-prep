@@ -12,7 +12,7 @@ T('bsour','Saison is highly attenuated, dry and effervescent, often with a peppe
 T('bsour','Belgian Golden Strong Ale is a pale, highly carbonated, dry, deceptively strong ale.',true,'');
 T('bsour','Light malt sweetness is part of the flavor profile of a Belgian Blond Ale.',true,'');
 T('bsour','Belgian Dark Strong Ale should be strongly roasty and harshly bitter.',false,'It has rich malt and dark fruit with alcohol warmth, not roast.');
-T('bsour','Biere de Garde is a French farmhouse-style ale with a smooth, malty, toasty or biscuity character.',true,'');
+T('bsour','Biere de Garde is a French farmhouse-style beer with a smooth, malty, toasty or biscuity character.',true,'It may be fermented with ale or lager yeast.');
 M('bsour','Which style traditionally contains coriander and orange peel?',['Witbier','Belgian Dubbel','Saison','Gose','Lambic'],0,'');
 M('bsour','Which sour style typically contains salt?',['Berliner Weisse','Gose','Flanders Red','Oud Bruin','Lambic'],1,'');
 M('bsour','Which Monastic style is the strongest and darkest?',['Belgian Single','Belgian Dubbel','Belgian Tripel','Belgian Dark Strong Ale','Belgian Blond'],3,'');
@@ -64,7 +64,7 @@ M('eaale','Which hops are typical of English Bitter?',['East Kent Goldings and F
 M('eaale','Which is the hoppiest of these?',['American Pale Ale','Ordinary Bitter','Dark Mild','Cream Ale','Blonde Ale'],0,'');
 M('eaale','Which English style is the strongest of the bitters?',['Ordinary Bitter','Best Bitter','Strong Bitter','Dark Mild','Scottish Light'],2,'');
 M('eaale','Which is a pale ale defined by citrusy American hops?',['American Pale Ale','English Pale Ale','Belgian Pale Ale','Irish Red','Scottish Export'],0,'');
-M('eaale','Which style historically used woody/minty Northern Brewer hops?',['California Common','American Pale Ale','Blonde Ale','Best Bitter','American IPA'],0,'');
+M('eaale','Which style historically used herbal/resinous/minty Northern Brewer hops?',['California Common','American Pale Ale','Blonde Ale','Best Bitter','American IPA'],0,'');
 M('eaale','Which pale Commonwealth style traditionally has a bottle-conditioned yeast sediment?',['Australian Sparkling Ale','British Golden Ale','English IPA','Ordinary Bitter','Blonde Ale'],0,'');
 M('eaale','Which is characterized by caramel malt with moderate American hops?',['American Amber Ale','Blonde Ale','Cream Ale','Irish Stout','Munich Helles'],0,'');
 
@@ -81,7 +81,7 @@ T('lager','Doppelbock is a very strong, rich, malty lager.',true,'');
 T('lager','Eisbock is made by freeze-concentrating a Doppelbock.',true,'');
 T('lager','Vienna Lager is an amber lager with toasty malt and moderate hop bitterness.',true,'');
 T('lager','Rauchbier is brewed with beechwood-smoked malt.',true,'');
-T('lager','Diacetyl is generally not appropriate in German lagers.',true,'Kellerbier is a possible exception.');
+T('lager','Diacetyl is generally not appropriate in German lagers.',true,'German lagers are expected to ferment clean; diacetyl is a fault.');
 T('lager','Kolsch is brewed with ale yeast fermented cool and then lagered.',true,'');
 T('lager','Altbier is a German ale that is fermented cool and lagered, typically bitter and clean.',true,'');
 T('lager','Baltic Porter may be fermented with lager yeast or with ale yeast at cool temperatures.',true,'');
@@ -153,7 +153,7 @@ T('clager','Vienna Lager is lighter in color than International Pale Lager.',fal
 T('clager','American Lager has more bitterness than German Pils.',false,'');
 T('clager','Rauchbier is a smoked Marzen-like lager.',true,'');
 T('clager','Doppelbock is stronger than Marzen.',true,'');
-T('clager','Eisbock is usually stronger than Doppelbock.',true,'');
+T('clager','Eisbock is typically stronger than Doppelbock.',true,'The name refers to the freeze-concentration process, so some Doppelbocks can be stronger.');
 T('clager','American Light Lager has a lower alcohol content than American Lager.',true,'');
 
 // ---------- MIXED STYLE TF / MC / MA ----------
@@ -197,3 +197,68 @@ A('cmixed','Which are appropriate for Dubbel?',['Dark fruit esters','Rich malt',
 A('cmixed','Which are appropriate for English Barleywine?',['Rich malt','Dark fruit','Alcohol warmth','Sourness','Strong carbonation'],[0,1,2],'');
 A('cmixed','Which are appropriate for Gose?',['Salt','Coriander','Lactic sourness','Strong hops','Roast'],[0,1,2],'');
 A('cmixed','Which are appropriate for Munich Dunkel?',['Bready malt','Melanoidins','Clean fermentation','Roast','Strong hop bitterness'],[0,1,2],'');
+
+// ---------- ADDED 2026-11-17: thin-pool expansion (wheat, ipas, eaale). Original questions, facts checked against the 2021 style notes ----------
+// Wheat (Cat 10 German Wheat Beer, 1D American Wheat Beer)
+T('wheat','Bubblegum aroma is a fault in Weissbier, Dunkles Weissbier and Weizenbock.',true,'Bubblegum, sourness and smoke are listed faults across the German wheat styles.');
+T('wheat','Wheat malt must make up at least half of the grist in a Weissbier.',true,'German wheat beers use at least 50% wheat malt.');
+T('wheat','A filtered, brilliantly clear Kristallweizen is still judged as a Weissbier (10A).',true,'Kristall is simply the filtered version of Weissbier.');
+T('wheat','A sweet, heavy finish is acceptable in a Weissbier because it is a wheat beer.',false,'The finish should be relatively dry; a sweet or heavy finish is a flaw.');
+T('wheat','Dunkles Weissbier should show a strong roasted-malt character.',false,'Toast, bread crust and caramel are right; at most a touch of roasty dryness.');
+T('wheat','In Dunkles Weissbier the banana and clove character is usually less apparent than in a Weissbier.',true,'Malt richness balances or partly masks the yeast character.');
+T('wheat','Weissbier is usually moderately carbonated, like an English bitter.',false,'Carbonation is high to very high.');
+T('wheat','Hop flavor is appropriate in a Weizenbock.',false,'Hop flavor is absent; bitterness is low to medium-low.');
+T('wheat','A Weizenbock can be pale or dark, and the entrant specifies which.',true,'Pale is roughly SRM 6-9 and dark SRM 10-25; the entrant declares it.');
+T('wheat','Weizenbock typically finishes at a higher gravity than Weissbier.',true,'FG about 1.015-1.022 versus 1.008-1.014 for Weissbier.');
+T('wheat','Decoction mashing is a traditional method for German wheat beers.',true,'Listed as traditional for Weissbier, Dunkles Weissbier and Weizenbock.');
+T('wheat','American Wheat Beer is generally more bitter than Weissbier.',true,'About 15-30 IBU versus 8-15 IBU, with more hop flavor and less yeast character.');
+T('wheat','An American Wheat Beer may be either hazy or brilliantly clear.',true,'Both appearances are acceptable.');
+T('wheat','An American beer featuring noticeable rye belongs in American Wheat Beer.',false,'American rye beers are judged as Rye Beer (31A).');
+M('wheat','Which aroma is a fault in every German wheat beer?',['Bubblegum','Banana','Clove','Light vanilla','Bready wheat'],0,'Banana, clove and optional light vanilla are correct; bubblegum is a fault.');
+M('wheat','Which best separates American Wheat Beer from Weissbier?',['Clean fermentation with no banana or clove, plus more hop character','Much higher alcohol','Dark Munich malt','Required sourness','Strong clove phenols'],0,'American Wheat uses clean yeast; weizen yeast character is inappropriate.');
+M('wheat','Which of these has the highest ABV range?',['Weissbier','Dunkles Weissbier','Weizenbock','American Wheat Beer'],2,'Weizenbock runs about 6.5-9% ABV; the others top out near 5.5%.');
+
+// IPAs (Cat 21 IPA, Cat 22A Double IPA)
+T('ipas','Double IPA is a Specialty IPA subtype within 21B.',false,'Double IPA is style 22A, in Strong American Ale.');
+T('ipas','A Rye IPA must have noticeable rye character; otherwise it belongs in American IPA.',true,'Rye character must be evident, with spicy, peppery grain notes.');
+T('ipas','Caraway and oak are appropriate in a Rye IPA.',false,'Neither is appropriate.');
+T('ipas','Entrants in Specialty IPA (21B) must declare strength and the type of IPA, or describe it.',true,'Strength defaults to standard if not stated.');
+T('ipas','Brut IPA should have high perceived bitterness to balance its dryness.',false,'Perceived bitterness is low to very low; it is very dry, light-bodied and highly carbonated.');
+T('ipas','Enzyme use in Brut IPA can cause diacetyl if misused.',true,'Diacetyl is a flaw in Brut IPA.');
+T('ipas','The haze in a Hazy IPA should come mainly from suspended yeast.',false,'It comes from polyphenol-protein interaction from heavy dry hopping, not yeast or starch.');
+T('ipas','Floating hop matter or yeast clumps are faults in a Hazy IPA.',true,'It should look hazy with a shine, not murky.');
+T('ipas','Hazy IPA is commonly brewed with flaked grains and little caramel or specialty malt.',true,'This helps the soft body and prevents malt from competing with the hops.');
+T('ipas','Black IPA uses debittered roast malts to keep roast restrained and not burnt or ashy.',true,'Roast should stay in the chocolate/coffee range and not clash with hops.');
+T('ipas','Brown IPA should be black in color.',false,'It is reddish-brown to dark brown, not black.');
+T('ipas','Red IPA has more chocolate and dark caramel character than Brown IPA.',false,'Brown IPA has more chocolate; Red IPA has medium-dark caramel and toasty notes.');
+T('ipas','White IPA gets its spicy character from yeast, from additions such as coriander and orange peel, or both.',true,'The spice additions are optional.');
+T('ipas','English IPA should show oak or Brettanomyces character from cask shipping history.',false,'Neither oak nor Brett is appropriate in English IPA.');
+T('ipas','West Coast IPA is a separate style with its own guideline entry.',false,'It is a dry, sharply bitter, clear type of American IPA (21A).');
+T('ipas','A light haze is allowed in American IPA.',true,'Clear is expected but a light haze is acceptable.');
+M('ipas','Which Specialty IPA is the darkest (SRM about 25-40)?',['Black IPA','Brown IPA','Red IPA','Rye IPA','White IPA'],0,'Black IPA is SRM 25-40; Brown IPA is 18-35.');
+M('ipas','Which IPA is very pale, crystal clear, with a massive rocky white head and up to about 40% adjuncts?',['Brut IPA','Hazy IPA','White IPA','Black IPA','Rye IPA'],0,'Brut IPA also has low malt, no crystal malt, and a very low FG.');
+M('ipas','Which of these is inappropriate in a Hazy IPA?',['Creamy, buttery or acidic aroma','Fruity hop flavor','Soft medium to medium-full body','Low to medium-high perceived bitterness','Haze'],0,'Creamy, buttery or acidic notes are inappropriate.');
+A('ipas','Which are appropriate for Hazy IPA?',['Intense fruity hop aroma','Soft, smooth body','Hazy to opaque appearance with a shine','Caramel or toasted malt','Harsh bitterness'],[0,1,2],'Caramel or toast malt and harshness are not right for the style.');
+A('ipas','Which are appropriate for Brut IPA?',['Very dry finish','Spritzy, very high carbonation','Bright tropical or citrus hop aroma','Caramel malt sweetness','Noticeable diacetyl'],[0,1,2],'Brut is neutral in malt, bone-dry, and very clean.');
+
+// Early-ale (Cat 11 British Bitter, 12 Pale Commonwealth, 18 Pale American Ale, 19 Amber/Brown American)
+T('eaale','Caramel flavor is a required element of British bitters.',false,'The guidelines caution against over-emphasizing caramel; oxidation increases caramel-like flavors and is not a style requirement.');
+T('eaale','Very low diacetyl is acceptable in all three British Bitter styles.',true,'Generally no diacetyl, but a very low level is allowed.');
+T('eaale','Bottled or export versions of British bitters tend to be sweeter and less hoppy than cask versions.',true,'They are often also higher in ABV and more carbonated.');
+T('eaale','British Golden Ale should have a noticeable caramel character.',false,'Caramel is absent; malt is low and bready.');
+T('eaale','Burton-style versions of Strong Bitter use medium-high sulfate water for a dry, minerally character.',true,'');
+T('eaale','Australian Sparkling Ale is highly attenuated and naturally carbonated.',true,'FG about 1.004-1.006, bottle-conditioned.');
+T('eaale','Pride of Ringwood hops can give Australian Sparkling Ale a characteristic iron-like hop note.',true,'Hops are earthy or herbaceous, and may show the iron-like Pride of Ringwood nose.');
+T('eaale','Australian Sparkling Ale should show noticeable caramel malt.',false,'Malt ranges from neutral grainy to lightly bready, but no caramel should be evident.');
+T('eaale','Oak and Brettanomyces are inappropriate in English IPA.',true,'Despite its cask-shipping history, they are not part of the style.');
+T('eaale','Modern citrusy New World hops suit California Common.',false,'It needs traditional herbal, resinous, minty hops such as Northern Brewer.');
+T('eaale','American Amber Ale may have dark roasted malt character.',false,'No dark or roasted malt; caramel is the key malt note.');
+T('eaale','Roasty Porter or Stout character is inappropriate in American Brown Ale.',true,'It is chocolate, caramel, nutty and toasty, not roasty.');
+T('eaale','American Pale Ale usually shows a restrained or absent caramel character.',true,'Malt is neutral and grainy, with small amounts of specialty malt.');
+T('eaale','Blonde Ale usually has a noticeable caramel flavor.',false,'Caramel is usually absent.');
+T('eaale','American Brown Ale is generally more bitter and more heavily hopped than English Brown Ale.',true,'It also has richer malt, more alcohol and American hop character.');
+M('eaale','Which has the lowest final gravity range?',['Australian Sparkling Ale','Ordinary Bitter','English IPA','Best Bitter'],0,'Australian Sparkling Ale: FG 1.004-1.006.');
+M('eaale','Which pale bitter is served colder than the cask bitters and has no caramel?',['British Golden Ale','Best Bitter','Strong Bitter','Ordinary Bitter'],0,'Also known as summer ale or golden bitter.');
+M('eaale','Which British Bitter is the strongest?',['Strong Bitter (about 4.6-6.2% ABV)','Best Bitter','Ordinary Bitter','British Golden Ale'],0,'');
+A('eaale','Which are appropriate for American Brown Ale?',['Chocolate','Nutty or toasty malt','Caramel','Roasty coffee-like intensity','Lactic sourness'],[0,1,2],'');
+A('eaale','Which are appropriate for Australian Sparkling Ale?',['Bottle-conditioned yeast haze','Pear or apple esters','Dry, crisp, highly attenuated finish','Caramel sweetness','Smoky character'],[0,1,2],'');

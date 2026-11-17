@@ -69,7 +69,7 @@ T('chars','Acetaldehyde smells like green apples and is often a sign of green (y
 T('chars','DMS has a cooked-corn, canned-vegetable character and can be reduced with a long, vigorous, open boil.',true,'');
 T('chars','Pilsner malt contains more DMS precursor (SMM) than ordinary pale malt.',true,'');
 T('chars','Low diacetyl can be appropriate in Czech lagers and English bitters.',true,'');
-T('chars','Diacetyl is appropriate in Irish Stout.',false,'Not appropriate in Irish stouts, American ales, Belgian ales or most German lagers.');
+T('chars','Diacetyl is appropriate in Irish Stout.',false,'Generally not appropriate in Irish stouts, most American and Belgian ales, or German lagers.');
 T('chars','Isoamyl acetate (banana) is a key ester in German Weissbier.',true,'');
 T('chars','Clove-like phenols (4-vinyl guaiacol) are a fault in Weissbier.',false,'They are characteristic of Weissbier.');
 T('chars','Clove-like phenols are appropriate in an American Pale Ale.',false,'Phenols are a fault in clean ale styles.');
@@ -78,7 +78,7 @@ T('chars','Fusel alcohols give a hot, solvent-like, burning sensation.',true,'')
 T('chars','Astringency can result from sparging with water above 170 F (77 C) or at pH above 6.',true,'Tannins are extracted from the grain husk.');
 T('chars','Astringency is perceived mainly as a mouthfeel sensation (drying, puckering) rather than a flavor.',true,'It belongs under Mouthfeel on the scoresheet.');
 T('chars','Chlorophenols (medicinal, band-aid) can result from chlorinated water or sanitizer residue combining with phenols.',true,'');
-T('chars','Brettanomyces character (leather, barnyard) is appropriate in Lambic and American Wild Ale.',true,'It is a fault in most other styles.');
+T('chars','Brettanomyces character (leather, barnyard) is appropriate in Lambic and Gueuze.',true,'It is a fault in most other styles.');
 T('chars','Oxidation can produce paper or cardboard (trans-2-nonenal) flavors, especially in pale low-gravity beers.',true,'');
 T('chars','Sherry-like oxidation is acceptable in light lagers.',false,'Low-to-moderate is acceptable in Old Ales and English Barleywines; not in light beers.');
 T('chars','A musty, moldy, damp-cellar character is not appropriate in any beer style.',true,'');

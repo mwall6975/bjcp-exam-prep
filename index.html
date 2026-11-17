@@ -40,6 +40,8 @@ nav.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
 nav.tabs button{background:none;border:0;color:var(--muted);padding:7px 12px;border-radius:8px;font-weight:600}
 nav.tabs button:hover{background:var(--accent-soft);color:var(--ink)}
 nav.tabs button.on{background:var(--accent);color:var(--accent-ink)}
+nav.tabs .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-left:6px;vertical-align:middle}
+nav.tabs button.on .dot{background:var(--accent-ink)}
 main{max-width:1080px;margin:0 auto;padding:20px 16px 80px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
 .grid{display:grid;gap:14px}
@@ -845,6 +847,22 @@ FAULTS.forEach(x=>{
 ['Five basic tastes','Sweet, sour, salty, bitter, umami.'],
 ['Palate cleansers at the table','Water, plain bread or unsalted crackers only.']
 ].forEach(c=>F('judging',c[0],c[1]));
+// Release notes shown on the "What's new" tab. Newest first. Add an entry for every user-visible change; the first entry's id drives the "new" dot on the tab.
+const RELEASES=[
+ {id:'1.3',date:'2026-11-17',title:'Merge import and What’s new',items:[
+  'Import now merges progress instead of replacing it, so you can study on two devices and combine them (see the rules on the dashboard card).',
+  'Added this What’s new page, with a dot on the tab until you open it.']},
+ {id:'1.2',date:'2026-11-17',title:'Storage explained on the dashboard',items:[
+  'New dashboard card explains where your progress is stored, its limits, and how to move it between devices.',
+  'Export and Import buttons are now on the dashboard as well as the Resources page.']},
+ {id:'1.1',date:'2026-11-17',title:'More questions and fact-check fixes',items:[
+  'Added 28 original practice questions to the thinnest pools: Wheat Beers (11 to 28), IPAs and Strong Ales (13 to 34), English and American Ales (19 to 39).',
+  'Corrected content after checking against the official BJCP 2021 style pages: removed out-of-scope Kellerbier and American Wild Ale references (the exam covers styles 1-26 only), fixed the Marzen SRM range, solvent/fusel and DMS entries in the fault table, and the California Common fermentation temperature (55-60 F).',
+  'Softened over-absolute wording on diacetyl, Biere de Garde, Eisbock and Pride of Ringwood.']},
+ {id:'1.0',date:'2026-11-17',title:'First release',items:[
+  'Study guide and fault table, flashcards, practice questions by exam section, a timed 180-question mock exam, a 2021 style reference, and a dashboard with a readiness estimate.',
+  'Progress saves in your browser; export and import to back up or move it.']}
+];
 
 /* ============ Core ============ */
 const $=(s,r=document)=>r.querySelector(s);
@@ -872,7 +890,40 @@ function load(){
 let S=load();
 function save(){MEM=S;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function exportProgress(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='bjcp-progress.json';a.click()}
-function importProgress(f){if(!f)return;f.text().then(t=>{try{S=Object.assign(S,JSON.parse(t));save();toast('Progress imported');go(view)}catch(x){toast('Could not read that file')}})}
+/* Merge two progress objects (a = this device, b = imported). Never loses data from either side.
+   questions: keep the entry with the newer last-answered time (n = larger count, to avoid double counting shared history)
+   cards: keep the card with the later due date; exams: union by timestamp; guide: studied if either; days: larger daily count */
+function mergeProgress(a,b){
+  const isO=x=>x&&typeof x==='object'&&!Array.isArray(x);
+  const out={q:{},cards:{},exams:[],guide:{},days:{}},st={q:0,cards:0,exams:0};
+  const A=isO(a)?a:{},B=isO(b)?b:{};
+  const aq=isO(A.q)?A.q:{},bq=isO(B.q)?B.q:{};
+  for(const id of new Set([...Object.keys(aq),...Object.keys(bq)])){
+    const x=aq[id],y=bq[id];
+    if(isO(x)&&isO(y)){const w=(y.last||0)>(x.last||0)?y:x;out.q[id]=Object.assign({},w,{n:Math.max(x.n||0,y.n||0)});if(w===y&&(y.last||0)!==(x.last||0))st.q++}
+    else if(isO(y)){out.q[id]=y;st.q++}else if(isO(x))out.q[id]=x;
+  }
+  const ac=isO(A.cards)?A.cards:{},bc=isO(B.cards)?B.cards:{};
+  for(const id of new Set([...Object.keys(ac),...Object.keys(bc)])){
+    const x=ac[id],y=bc[id];
+    if(isO(x)&&isO(y)){if((y.due||0)>(x.due||0)){out.cards[id]=y;st.cards++}else out.cards[id]=x}
+    else if(isO(y)){out.cards[id]=y;st.cards++}else if(isO(x))out.cards[id]=x;
+  }
+  const seen=new Set();
+  for(const e of [...(Array.isArray(A.exams)?A.exams:[]),...(Array.isArray(B.exams)?B.exams:[])]){
+    if(!isO(e))continue;const k=e.t+'|'+e.mode+'|'+e.score;if(seen.has(k))continue;seen.add(k);out.exams.push(e)}
+  out.exams.sort((p,q)=>(p.t||0)-(q.t||0));
+  st.exams=out.exams.length-(Array.isArray(A.exams)?A.exams.filter(isO).length:0);
+  const ag=isO(A.guide)?A.guide:{},bg=isO(B.guide)?B.guide:{};
+  for(const id of new Set([...Object.keys(ag),...Object.keys(bg)]))if(ag[id]||bg[id])out.guide[id]=true;
+  const ad=isO(A.days)?A.days:{},bd=isO(B.days)?B.days:{};
+  for(const d of new Set([...Object.keys(ad),...Object.keys(bd)]))out.days[d]=Math.max(+ad[d]||0,+bd[d]||0);
+  return {data:out,stats:st};
+}
+function importProgress(f){if(!f)return;f.text().then(t=>{try{
+  const p=JSON.parse(t);if(!p||typeof p!=='object'||Array.isArray(p)||!('q' in p||'cards' in p||'exams' in p))throw 0;
+  const r=mergeProgress(S,p);S=Object.assign(S,r.data);save();
+  toast(`Merged: ${r.stats.q} questions, ${r.stats.cards} cards, ${r.stats.exams} exams updated or added`);go(view)}catch(x){toast('Could not read that file')}})}
 function today(){return new Date().toISOString().slice(0,10)}
 function bump(n=1){S.days[today()]=(S.days[today()]||0)+n}
 function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
@@ -950,15 +1001,23 @@ function readiness(){
 function dueCards(){const now=Date.now();return FLASH.filter(c=>{const s=S.cards[c.id];return !s||s.due<=now})}
 
 /* ============ Router ============ */
-const TABS=[['home','Dashboard'],['learn','Learn'],['cards','Flashcards'],['quiz','Quiz'],['exam','Mock Exam'],['styles','Styles'],['res','Resources']];
+const TABS=[['home','Dashboard'],['learn','Learn'],['cards','Flashcards'],['quiz','Quiz'],['exam','Mock Exam'],['styles','Styles'],['new','What’s new'],['res','Resources']];
 let view='home';
 let examState=null;
 function go(v,arg){
   if(examState&&examState.running&&v!=='exam'){if(!confirm('A mock exam is in progress. Leave it? (The timer keeps running and answers are kept until you reload.)'))return}
   view=v;renderTabs();const app=$('#app');app.innerHTML='';window.scrollTo(0,0);
-  ({home:renderHome,learn:renderLearn,cards:renderCards,quiz:renderQuizSetup,exam:renderExam,styles:renderStyles,res:renderRes}[v])(app,arg);
+  ({home:renderHome,learn:renderLearn,cards:renderCards,quiz:renderQuizSetup,exam:renderExam,styles:renderStyles,new:renderNew,res:renderRes}[v])(app,arg);
 }
-function renderTabs(){const t=$('#tabs');t.innerHTML='';TABS.forEach(([k,l])=>{const b=document.createElement('button');b.textContent=l;if(k===view)b.className='on';b.onclick=()=>go(k);t.appendChild(b)})}
+const VKEY=KEY+'v';
+function seenRelease(){try{return localStorage.getItem(VKEY)}catch(e){return null}}
+function markReleaseSeen(){try{localStorage.setItem(VKEY,RELEASES[0].id)}catch(e){}}
+function renderTabs(){const t=$('#tabs');t.innerHTML='';TABS.forEach(([k,l])=>{const b=document.createElement('button');b.textContent=l;if(k===view)b.className='on';if(k==='new'&&view!=='new'&&seenRelease()!==RELEASES[0].id){const d=document.createElement('span');d.className='dot';d.title='New updates';b.appendChild(d)}b.onclick=()=>go(k);t.appendChild(b)})}
+function renderNew(app){
+  markReleaseSeen();renderTabs();
+  app.innerHTML=`<h1>What&rsquo;s new</h1><p class="muted">Recent changes to the app, newest first. Your saved progress is not affected by updates.</p>`+
+  RELEASES.map(r=>`<div class="card" style="margin:14px 0"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(r.title)}</h2><span class="small muted"><span class="pill">v${esc(r.id)}</span> ${esc(r.date)}</span></div><ul class="tight" style="margin-top:8px">${r.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></div>`).join('');
+}
 window.addEventListener('beforeunload',e=>{if(examState&&examState.running){e.preventDefault();e.returnValue=''}});
 
 /* ============ Dashboard ============ */
@@ -1000,7 +1059,7 @@ function renderHome(app){
   <ul class="tight small">
     <li><b>On this device only.</b> Your answers, flashcard schedule, mock exam scores and streak are saved in this browser&rsquo;s local storage. There is no account, no server and nothing is uploaded; the site host never sees your progress.</li>
     <li><b>Tied to one browser.</b> A different browser, a different device, or a private/incognito window starts with empty progress. Clearing site data for this page erases it. If your browser blocks storage, progress is kept only until you close the tab.</li>
-    <li><b>Moving between devices:</b> choose <i>Export progress</i> here, send the file to your other device (email, cloud drive, AirDrop), and choose <i>Import</i> there. Import <b>replaces</b> that device&rsquo;s saved progress with the file&rsquo;s contents, so export from the device you used most recently.</li>
+    <li><b>Moving between devices:</b> choose <i>Export progress</i> here, send the file to your other device (email, cloud drive, AirDrop), and choose <i>Import</i> there. Import <b>merges</b> the file into what is already on that device: it keeps the newer answer for each question, the card further along in its schedule, every mock exam, and the higher daily count. Nothing on either device is lost. To make a device match the file exactly, use <i>Reset all progress</i> (Resources page) before importing.</li>
     <li><b>Back up before big changes.</b> Export a copy now and then, especially before clearing browser data or switching browsers.</li>
   </ul>
   <div class="row" style="margin-top:10px"><button class="btn ghost sm" id="hExp">Export progress</button><label class="btn ghost sm" style="cursor:pointer">Import progress<input type="file" id="hImp" accept="application/json" hidden></label></div></div>`;

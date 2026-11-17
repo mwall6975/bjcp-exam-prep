@@ -23,6 +23,8 @@ function load(){
 }
 let S=load();
 function save(){MEM=S;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function exportProgress(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='bjcp-progress.json';a.click()}
+function importProgress(f){if(!f)return;f.text().then(t=>{try{S=Object.assign(S,JSON.parse(t));save();toast('Progress imported');go(view)}catch(x){toast('Could not read that file')}})}
 function today(){return new Date().toISOString().slice(0,10)}
 function bump(n=1){S.days[today()]=(S.days[today()]||0)+n}
 function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
@@ -145,8 +147,17 @@ function renderHome(app){
   });
   h+=`</div><div class="grid" style="align-content:start">
   <div class="card"><h2>Recent mock exams</h2>${exams.length?`<table><tr><th>Date</th><th>Mode</th><th>Score</th><th></th></tr>`+exams.map(e=>`<tr><td>${new Date(e.t).toLocaleDateString()}</td><td>${esc(e.mode)}</td><td>${e.score}/${e.total} (${Math.round(100*e.score/e.total)}%)</td><td><span class="pill ${e.pass?'good':'bad'}">${e.pass?'PASS':'not yet'}</span></td></tr>`).join('')+'</table>':'<p class="muted">No mock exams yet. Try a full 180-question run once you have covered the guide.</p>'}</div>
-  <div class="card"><h2>5-week study plan</h2>${PLAN.map(p=>`<p style="margin:.5em 0"><b>${p[0]}:</b> ${esc(p[1])}</p>`).join('')}</div></div></div>`;
+  <div class="card"><h2>5-week study plan</h2>${PLAN.map(p=>`<p style="margin:.5em 0"><b>${p[0]}:</b> ${esc(p[1])}</p>`).join('')}</div></div></div>
+  <div class="card" style="margin-top:16px"><h2>How your progress is stored</h2>
+  <ul class="tight small">
+    <li><b>On this device only.</b> Your answers, flashcard schedule, mock exam scores and streak are saved in this browser&rsquo;s local storage. There is no account, no server and nothing is uploaded; the site host never sees your progress.</li>
+    <li><b>Tied to one browser.</b> A different browser, a different device, or a private/incognito window starts with empty progress. Clearing site data for this page erases it. If your browser blocks storage, progress is kept only until you close the tab.</li>
+    <li><b>Moving between devices:</b> choose <i>Export progress</i> here, send the file to your other device (email, cloud drive, AirDrop), and choose <i>Import</i> there. Import <b>replaces</b> that device&rsquo;s saved progress with the file&rsquo;s contents, so export from the device you used most recently.</li>
+    <li><b>Back up before big changes.</b> Export a copy now and then, especially before clearing browser data or switching browsers.</li>
+  </ul>
+  <div class="row" style="margin-top:10px"><button class="btn ghost sm" id="hExp">Export progress</button><label class="btn ghost sm" style="cursor:pointer">Import progress<input type="file" id="hImp" accept="application/json" hidden></label></div></div>`;
   app.innerHTML=h;
+  $('#hExp').onclick=exportProgress;$('#hImp').onchange=e=>importProgress(e.target.files[0]);
   $('#hCards').onclick=()=>go('cards');$('#hMock').onclick=()=>go('exam');$('#hLearn').onclick=()=>go('learn');
   $('#hDaily').onclick=()=>startQuiz({sub:'all',type:'any',n:20,mode:'smart'});
   $('#hMiss').onclick=()=>startQuiz({sub:'all',type:'any',n:20,mode:'missed'});

@@ -221,8 +221,8 @@ function renderRes(app){
   <div class="card"><h2>Your data</h2><p class="small muted">Progress is stored in this browser only.</p><div class="row"><button class="btn ghost sm" id="exp">Export progress</button><label class="btn ghost sm" style="cursor:pointer">Import<input type="file" id="imp" accept="application/json" hidden></label><button class="btn ghost sm" id="rst">Reset all progress</button></div>
   <h3 style="margin-top:1.2em">Theme</h3><div class="row"><button class="btn ghost sm" data-th="auto">Auto</button><button class="btn ghost sm" data-th="light">Light</button><button class="btn ghost sm" data-th="dark">Dark</button></div>
   <h3 style="margin-top:1.2em">Bank size</h3><p class="small muted">${QALL.length} practice questions (${QALL.filter(q=>q.gen).length} generated from style data) and ${FLASH.length} flashcards.</p></div></div>`;
-  $('#exp').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S)],{type:'application/json'}));a.download='bjcp-progress.json';a.click()};
-  $('#imp').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(t=>{try{S=Object.assign(S,JSON.parse(t));save();toast('Progress imported')}catch(x){toast('Could not read that file')}})};
+  $('#exp').onclick=exportProgress;
+  $('#imp').onchange=e=>importProgress(e.target.files[0]);
   $('#rst').onclick=()=>{if(confirm('Erase all progress in this browser?')){S={q:{},cards:{},exams:[],guide:{},days:{}};save();toast('Progress reset')}};
   app.querySelectorAll('[data-th]').forEach(b=>b.onclick=()=>{const t=b.dataset.th;if(t==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem(KEY+'t',t)}catch(e){}});
 }

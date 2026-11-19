@@ -1,5 +1,8 @@
 // Release notes shown on the "What's new" tab. Newest first. Add an entry for every user-visible change; the first entry's id drives the "new" dot on the tab.
 const RELEASES=[
+ {id:'1.4',date:'2026-11-19',title:'Fuller Ingredients and Brewing Process guide',items:[
+  'The Water, Malt & Wort and Hops, Yeast & Fermentation guide sections now cover the whole BJCP Study Guide chapter: water chemistry and famous brewing waters, malting and kilning, mash rests and methods, lautering, the boil, hop bitterness and varieties, yeast types, the yeast life cycle, and by-product control. Written in our own words from the official study guide.',
+  'Where the study guide and the 2021 style guidelines differ (Oktoberfest/Marzen color, California Common fermentation temperature, bubblegum esters in weizen yeast), both are shown and the guidelines are named as the authority for style questions.']},
  {id:'1.3',date:'2026-11-17',title:'Merge import and What’s new',items:[
   'Import now merges progress instead of replacing it, so you can study on two devices and combine them (see the rules on the dashboard card).',
   'Added this What’s new page, with a dot on the tab until you open it.']},
